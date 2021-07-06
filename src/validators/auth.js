@@ -4,14 +4,14 @@ exports.validateSignupRequest = [
     check("firstName")
         .notEmpty()
         .withMessage("firstName is required"),
-    check("Address")
+    check("profession")
         .notEmpty()
-        .withMessage("Address is required"),
-    check("Address"),
+        .withMessage("profession is required"),
+    check("profession"),
     check("email")
         .isEmail()
         .withMessage("Valid Email is required"),
-    check("password") 
+    check("password")
         .isLength({ min: 6 })
         .withMessage("Password must be at least 6 character long"),
     check("PhoneNo")

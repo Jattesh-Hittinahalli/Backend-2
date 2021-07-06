@@ -10,12 +10,17 @@ const userSchema = new mongoose.Schema(
             min: 3,
             max: 20,
         },
-        lastName: {
-            type: String,
-            required: true,
-            trim: true,
-            min: 3,
-            max: 20,
+        profession: {
+            type: String
+
+        },
+        interestedin: {
+            type: String
+
+        },
+        PhoneNo: {
+            type: String
+
         },
         username: {
             type: String,

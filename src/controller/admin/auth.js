@@ -8,11 +8,13 @@ exports.signup = (req, res) => {
             return res.status(400).json({
                 message: "Admin already exist",
             });
-        const { firstName, Address, PhoneNo, email, password } = req.body;
+        const { firstName, profession, PhoneNo, email, password, interestedin } = req.body;
         const hash_password = await bcrypt.hash(password, 10);
         const _user = new User({
             firstName,
-            lastName,
+            profession,
+            PhoneNo,
+            interestedin,
             email,
             hash_password,
             username: firstName + "_" + Math.random().toString(36).substring(2),
@@ -22,7 +24,7 @@ exports.signup = (req, res) => {
         _user.save((error, data) => {
             if (error) {
                 return res.status(400).json({
-                    message: "Something went wrong",
+                    message: error
                 });
             }
 
