@@ -7,21 +7,21 @@ var hbs = require("nodemailer-express-handlebars");
 const AdmZip = require('adm-zip');
 var fs = require('fs');
 const path = require('path');
+
 exports.signup = (req, res) => {
     User.findOne({ email: req.body.email }).exec(async (error, user) => {
         if (user)
             return res.status(400).json({
-                message: "User already exist",
+                message: "user already exist",
             });
-        const img = req.file.path;
-        const { firstName, Address, PhoneNo, email, password } = req.body;
+        const { firstName, profession, PhoneNo, email, password, interestedin } = req.body;
         const hash_password = await bcrypt.hash(password, 10);
         const _user = new User({
             firstName,
-            Address,
-            email,
-            img,
+            profession,
             PhoneNo,
+            interestedin,
+            email,
             hash_password,
             username: firstName + "_" + Math.random().toString(36).substring(2),
             role: "user",
@@ -30,13 +30,13 @@ exports.signup = (req, res) => {
         _user.save((error, data) => {
             if (error) {
                 return res.status(400).json({
-                    message: "Something went wrong",
+                    message: error
                 });
             }
 
             if (data) {
                 return res.status(201).json({
-                    message: "User created Successfully..!",
+                    message: "user created Successfully..!",
                 });
             }
         });

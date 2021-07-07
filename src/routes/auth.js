@@ -27,7 +27,7 @@ var upload = multer({ storage: storage });
 // );
 
 
-router.post('/signup', upload.single("productimage", 10), validateSignupRequest, isRequestValidated, signup);
+router.post('/signup', validateSignupRequest, isRequestValidated, signup);
 router.post('/signin', validateSigninRequest, isRequestValidated, signin);
 router.put('/update', validateSignupRequest, isRequestValidated, requiredsignin, verifyadmin, update);
 router.get('/user/list', getuser);
