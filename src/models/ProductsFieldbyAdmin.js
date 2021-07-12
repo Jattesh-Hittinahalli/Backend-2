@@ -23,6 +23,9 @@ const userSchema = new mongoose.Schema(
         },
         Tonnage: {
             type: String
+        },
+        categoryID: {
+            type: String
         }
     },
     { timestamps: true }

@@ -20,11 +20,11 @@ exports.requiredsignin = (req, res, next) => {
 };
 
 exports.verifyadmin = (req, res, next) => {
-    if (req.User.role === "superadmin") {
+    if (req.User.role === "admin") {
         next();
     } else {
         return res.status(400).json({
-            message: "You are Not Super Admin",
+            message: "You are Not Admin",
         });
     }
 };

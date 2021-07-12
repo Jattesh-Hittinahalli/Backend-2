@@ -63,3 +63,70 @@ exports.ProductsFieldbyAdmin = (req, res) => {
         if (data) return res.status(200).json({ data });
     });
 };
+
+exports.getadminProducts = (req, res) => {
+    ProductsFieldbyAdmin.find({}).exec((error, Products) => {
+        if (error) return res.status(400).json({ error });
+        if (Products) {
+            res.status(200).json({ Products });
+        }
+    });
+};
+
+
+exports.update = (req, res) => {
+    const { PPK, HdgUnitPrice, _id, HdgCharge, Tonnage } = req.body;
+
+    obj = {
+
+    }
+
+    if (PPK) {
+        obj.PPK = PPK;
+    }
+    if (HdgUnitPrice) {
+        obj.HdgUnitPrice = HdgUnitPrice;
+    }
+    if (HdgCharge) {
+        obj.HdgCharge = HdgCharge;
+    }
+    if (Tonnage) {
+        obj.Tonnage = Tonnage;
+    }
+    ProductsFieldbyAdmin
+        .find(
+            { _id: req._id },
+        ).exec().then((data) => {
+            if (data) {
+                var myquery = { _id: _id };
+                var newvalues = { $set: obj };
+                ProductsFieldbyAdmin
+                    .updateOne(myquery, newvalues).exec((error, data) => {
+                        if (error) {
+                            res.status(400).json({
+                                message: "Something went wrong...",
+                            });
+                        } else {
+                            res.status(200).json({
+                                message: data
+
+                            });
+                        }
+                    });
+            }
+        })
+
+
+
+}
+
+exports.getadminproductbycategory = (req, res) => {
+    console.log(req.query.CategoryID)
+    ProductsFieldbyAdmin.find({ categoryID: req.query.CategoryID }).exec((error, data) => {
+        if (error) return res.status(400).json({ error });
+        if (data) {
+            return res.status(200).json({ data });
+
+        }
+    });
+};

@@ -1,5 +1,6 @@
 const category = require("../models/Product");
 const ProductsFieldbyAdmin = require("../models/ProductsFieldbyAdmin");
+const displayProduct = require("../models/displayProduct")
 
 
 exports.CreateProduct = async (req, res) => {
@@ -9,7 +10,6 @@ exports.CreateProduct = async (req, res) => {
     };
     const CategoryID = req.body.CategoryID
     if (CategoryID == "60d22936de1c062a84064523") {
-        console.log("unser")
         let Width = req.body.Width;
         let Height = req.body.Height;
         let Thickness = req.body.Thickness;
@@ -674,5 +674,38 @@ exports.getproductbycategory = (req, res) => {
     });
 };
 
+exports.displayProduct = (req, res) => {
+    const img = req.file.path;
+    const { Name, categoryId, productCode } = req.body
+    const _displayProduct = new displayProduct({
+        Name,
+        categoryId,
+        productCode,
+        img
+    });
 
+    _displayProduct.save((error, data) => {
+        if (error) {
+            return res.status(400).json({
+                message: error
+            });
+        }
+        if (data) {
+            return res.status(201).json({
+                message: data,
+            });
+        }
+    });
+}
+
+exports.getDisplayproductbycategory = (req, res) => {
+    console.log(req.query.CategoryID)
+    displayProduct.find({ categoryId: req.query.CategoryID }).exec((error, data) => {
+        if (error) return res.status(400).json({ error });
+        if (data) {
+            return res.status(200).json({ data });
+
+        }
+    });
+};
 
