@@ -108,7 +108,7 @@ exports.update = (req, res) => {
                             });
                         } else {
                             res.status(200).json({
-                                message: data
+                                message: "Products is Updated"
 
                             });
                         }
