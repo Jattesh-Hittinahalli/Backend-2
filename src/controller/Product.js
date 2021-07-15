@@ -9,6 +9,19 @@ exports.CreateProduct = async (req, res) => {
         parentId: parentId
     };
     const CategoryID = req.body.CategoryID
+    console.log(CategoryID)
+    if (!CategoryID) {
+        console.log("hi")
+        return res.status(400).json({
+            Message: "Please Send Category ID"
+        });
+    }
+    if (!parentId) {
+        console.log("hi")
+        return res.status(400).json({
+            Message: "Please Send parent ID"
+        });
+    }
     if (CategoryID == "60d22936de1c062a84064523") {
         let Width = req.body.Width;
         let Height = req.body.Height;
