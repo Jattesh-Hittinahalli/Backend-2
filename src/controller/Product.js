@@ -722,3 +722,34 @@ exports.getDisplayproductbycategory = (req, res) => {
     });
 };
 
+exports.displayProductupdate = (req, res) => {
+    if (!req.body._id) {
+        res.status(400).json({
+            Message: "Please Submit id"
+        })
+    }
+    const img = req.file.path;
+    displayProduct.find(
+        { _id: req._id },
+    ).exec().then((data) => {
+        if (data) {
+            var myquery = { _id: req.body._id };
+            var newvalues = { $set: { img: req.file.path } };
+            displayProduct
+                .updateOne(myquery, newvalues).exec((error, data) => {
+                    if (error) {
+                        res.status(400).json({
+                            message: "Something went wrong...",
+                        });
+                    } else if (data) {
+                        res.status(200).json({
+                            Messge: "Images of Products are Updated..."
+
+                        });
+                    }
+                });
+        }
+    })
+
+}
+
