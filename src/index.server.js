@@ -40,7 +40,7 @@ mongoose
         console.log("Database is connected");
     });
 app.use(cors())
-
+app.use(express.static("uploads"));
 app.use(express.json());
 app.use("/api", superadminRoutes);
 app.use("/api", adminRoutes);
