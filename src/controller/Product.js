@@ -728,7 +728,8 @@ exports.displayProductupdate = (req, res) => {
             Message: "Please Submit id"
         })
     }
-    const img = req.file.path;
+    const img = req.file;
+    console.log(img)
     displayProduct.find(
         { _id: req._id },
     ).exec().then((data) => {
@@ -743,7 +744,7 @@ exports.displayProductupdate = (req, res) => {
                         });
                     } else if (data) {
                         res.status(200).json({
-                            Messge: "Images of Products are Updated..."
+                            profile_url: `https://backend-titan.herokuapp.com/api/profile/${req.file.filename}`
 
                         });
                     }

@@ -14,15 +14,18 @@ var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './uploads')
     },
-    filename: (req, files, cb) => {
-        cb(null, "img" + Date.now() + files.originalname);
+    // filename: (req, files, cb) => {
+    //     cb(null, "img" + Date.now() + files.originalname);
+    // },
+    filename: (req, file, cb) => {
+        return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
     },
     pathName: (req, files, cb) => {
         cb(null, pa + files.originalname);
     }
 });
 var upload = multer({ storage: storage });
-
+router.use('/profile', express.static('uploads'));
 router.post("/product1/create", CreateProduct);
 router.get("/product1/display", requiredsignin, getDisplayproductbycategory);
 router.post("/display/product1/create", upload.single("productimage", 10), displayProduct);
