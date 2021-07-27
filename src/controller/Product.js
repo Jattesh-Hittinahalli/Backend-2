@@ -728,14 +728,14 @@ exports.displayProductupdate = (req, res) => {
             Message: "Please Submit id"
         })
     }
-    const img = req.file;
-    console.log(img)
+    const newimg = `https://backend-titan.herokuapp.com/api/profile/${req.file.filename}`;
+    console.log(newimg)
     displayProduct.find(
         { _id: req._id },
     ).exec().then((data) => {
         if (data) {
             var myquery = { _id: req.body._id };
-            var newvalues = { $set: { img: req.file.path } };
+            var newvalues = { $set: { img: newimg } };
             displayProduct
                 .updateOne(myquery, newvalues).exec((error, data) => {
                     if (error) {
